@@ -46,8 +46,8 @@ func Init(
 	}
 }
 
-// Level return the supported levels
-func (h ErrorHook) Level() []logrus.Level {
+// Levels return the supported levels
+func (h ErrorHook) Levels() []logrus.Level {
 	return h.LogLevels
 }
 
