@@ -24,7 +24,7 @@ func Init(
 	keepOutput bool, writer io.Writer,
 	levels []logrus.Level, onAfterWrite WriteCallback,
 	formatter logrus.Formatter,
-) *ErrorHook {
+) ErrorHook {
 	if !keepOutput {
 		logrus.SetOutput(ioutil.Discard)
 	}
@@ -37,7 +37,7 @@ func Init(
 	if len(levels) == 0 {
 		levels = append(levels, logrus.ErrorLevel, logrus.FatalLevel)
 	}
-	return &ErrorHook{
+	return ErrorHook{
 		KeepOutput:   keepOutput,
 		Writer:       writer,
 		LogLevels:    levels,
@@ -47,12 +47,12 @@ func Init(
 }
 
 // Level return the supported levels
-func (h *ErrorHook) Level() []logrus.Level {
+func (h ErrorHook) Level() []logrus.Level {
 	return h.LogLevels
 }
 
 // Fire execute
-func (h *ErrorHook) Fire(entry *logrus.Entry) error {
+func (h ErrorHook) Fire(entry *logrus.Entry) error {
 	formatted, err := h.Formtter.Format(entry)
 	if err != nil {
 		return err
